@@ -11,7 +11,7 @@ import HourglassBottom from "@mui/icons-material/HourglassBottom";
 import "./JobCard.css";
 import { Bolt } from "@mui/icons-material";
 
-const JobCard = () => {
+const JobCard = ({jobRole,jobDescription,jobLink,jobLocation}) => {
   return (
     <Box
       className="shadow"
@@ -63,10 +63,10 @@ const JobCard = () => {
                   fontSize: "0.7rem",
                 }}
               >
-                fampay
+                Weekday
               </Typography>
               <Typography gutterBottom variant="body2">
-                Backend Engineer
+                {jobRole}
               </Typography>
               <Typography
                 variant="body2"
@@ -74,7 +74,7 @@ const JobCard = () => {
                   fontSize: "0.6rem",
                 }}
               >
-                Bangalore
+                {jobLocation}
               </Typography>
             </Box>
           </Box>
@@ -87,20 +87,8 @@ const JobCard = () => {
             <Typography sx={{ fontWeight: "500" }}>About Company</Typography>
             <Box sx={{ maxHeight: "200px", overflow: "hidden" }}>
               <Typography variant="caption">
-                FamPay is building India’s first neo-bank exclusively teens.
-                FamPay helps teens make their own online and offline payments
-                through UPI, FamPay App and FamCard. Our aim is to make banking
-                cool for teens and to help them learn the value of money,
-                savings and spending wisely. We are on a mission to raise a new,
-                financially aware generation, and drive 250 Million+ Indian
-                teenagers to kickstart their FamPay is building India’s first
-                neo-bank exclusively teens. FamPay helps teens make their own
-                online and offline payments through UPI, FamPay App and FamCard.
-                Our aim is to make banking cool for teens and to help them learn
-                the value of money, savings and spending wisely. We are on a
-                mission to raise a new, financially aware generation, and drive
-                250 Million+ Indian teenagers to kickstart their
-              </Typography>
+                {jobDescription}
+                </Typography>
             </Box>
             <Box
               sx={{
