@@ -1,16 +1,16 @@
 import React from "react";
-import { fetchDataStart, setFilterSalaryData } from "../../features/redux/jobs/jobsSlice";
 import Select from 'react-select';
 import { useDispatch } from "react-redux";
 import {salaryRange} from '../../constants/constant';
+import { applyFilters, setFilters } from "../../features/redux/jobs/jobsSlice";
 
 const SalaryFilter = () => {
   const dispatch = useDispatch();
 
   const handleSalarySelect = (selectedSalary) => {
     const salary = selectedSalary.value;
-    dispatch(fetchDataStart());
-    dispatch(setFilterSalaryData(salary));
+    dispatch(setFilters({salary}))
+    dispatch(applyFilters())
   };
 
   return (

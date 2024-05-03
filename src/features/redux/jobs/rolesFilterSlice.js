@@ -11,7 +11,7 @@ export const rolesFilterSlice = createSlice({
       state.loading = true;
     },
     fetchRolesDataSuccess: (state, action) => {
-      state.roles = [...state.roles, ...action.payload];
+      state.roles = [...action.payload];
       state.loading = false;
     },
     fetchRolesDataFailure: (state) => {

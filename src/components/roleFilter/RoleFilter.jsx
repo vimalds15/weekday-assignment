@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataStart, setFilterRoleData } from "../../features/redux/jobs/jobsSlice";
 import Select from 'react-select';
+import { applyFilters, setFilters } from "../../features/redux/jobs/jobsSlice";
 
 const RoleFilter = () => {
   const roles = useSelector((state) => state.roles.roles);
@@ -9,8 +9,8 @@ const RoleFilter = () => {
 
   const handleRoleMultiSelect = (selectionRole) => {
     const selectedRoles = selectionRole.map((item) => item.label);
-    dispatch(fetchDataStart());
-    dispatch(setFilterRoleData(selectedRoles));
+    dispatch(setFilters({role: selectedRoles}))
+    dispatch(applyFilters())
   };
 
   return (

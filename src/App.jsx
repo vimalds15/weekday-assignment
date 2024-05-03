@@ -44,6 +44,7 @@ function App() {
     }
   }, [offset]);
 
+  console.log("rendering")
   
   return (
     <div className="container">

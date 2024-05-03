@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchDataStart,
-  setFilterLocationData,
+  applyFilters,
+  setFilters,
 } from "../../features/redux/jobs/jobsSlice";
 import Select from "react-select";
 
@@ -12,8 +12,8 @@ const LocationFilter = () => {
 
   const handleLocationMultiSelect = (selectionLocation) => {
     const selectedLocations = selectionLocation.map((item) => item.label);
-    dispatch(fetchDataStart());
-    dispatch(setFilterLocationData(selectedLocations));
+    dispatch(setFilters({location: selectedLocations}));
+    dispatch(applyFilters())
   };
 
   return (

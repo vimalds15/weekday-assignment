@@ -11,7 +11,8 @@ export const locationFilterSlice = createSlice({
       state.loading = true;
     },
     fetchLocationDataSuccess: (state, action) => {
-      state.locations = [...state.locations, ...action.payload];
+      const uniqueLocations = new Set([...state.locations, ...action.payload]);
+      state.locations = [...uniqueLocations];
       state.loading = false;
     },
     fetchLocationDataFailure: (state) => {
