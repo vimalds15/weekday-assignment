@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-const JobInfoCard = ({ jobRole, jobLocation }) => {
+const JobInfoCard = ({ jobRole, jobLocation, companyName, logoUrl }) => {
   return (
     <Box
       sx={{
@@ -11,12 +11,16 @@ const JobInfoCard = ({ jobRole, jobLocation }) => {
       }}
     >
       <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAxJqlFEEfvA5VeDbGpRcv43F_edlFn7MB8iYsGyvF9w&s"
+        src={logoUrl || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAxJqlFEEfvA5VeDbGpRcv43F_edlFn7MB8iYsGyvF9w&s"}
         width="50px"
         height="50px"
       />
 
-      <Box>
+      <Box
+        sx={{
+            marginLeft: "0.6rem"
+        }}
+      >
         <Typography
           gutterBottom
           variant="body2"
@@ -27,7 +31,7 @@ const JobInfoCard = ({ jobRole, jobLocation }) => {
             cursor: "pointer",
           }}
         >
-          Weekday
+          {companyName || 'Weekday'}
         </Typography>
         <Typography gutterBottom variant="body2">
           {jobRole}

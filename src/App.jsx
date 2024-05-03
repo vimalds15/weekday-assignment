@@ -61,6 +61,8 @@ function App() {
               jobMaxSalary={job?.maxJdSalary}
               jobMinExp={job?.minExp}
               jobCurrency={job?.salaryCurrencyCode}
+              companyName={job?.companyName}
+              logoUrl={job?.logoUrl}
             />
           </Grid>
         ))}

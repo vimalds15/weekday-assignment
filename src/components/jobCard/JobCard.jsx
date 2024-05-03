@@ -19,7 +19,7 @@ import JobDescription from "../jobDescription/JobDescription";
 import PostedDateChip from "../postedDateChip/PostedDateChip";
 import JobInfoCard from "../jobInfoCard/JobInfoCard";
 
-const JobCard = ({jobRole,jobDescription,jobLocation,jobMinSalary,jobMaxSalary,jobCurrency,jobMinExp}) => {
+const JobCard = ({jobRole,jobDescription,jobLocation,jobMinSalary,jobMaxSalary,jobCurrency,jobMinExp,companyName,logoUrl}) => {
   return (
     <Box
       className="job-card-container shadow"
@@ -40,7 +40,7 @@ const JobCard = ({jobRole,jobDescription,jobLocation,jobMinSalary,jobMaxSalary,j
           }}
         >
           <PostedDateChip />
-          <JobInfoCard jobRole={jobRole} jobLocation={jobLocation} />
+          <JobInfoCard companyName={companyName} logoUrl={logoUrl} jobRole={jobRole} jobLocation={jobLocation} />
           <SalaryCard jobMinSalary={jobMinSalary} jobMaxSalary={jobMaxSalary} jobCurrency={jobCurrency} />
           <JobDescription jobDescription={jobDescription} />
           <ExperienceCard jobMinExp={jobMinExp} />
