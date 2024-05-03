@@ -11,10 +11,10 @@ import HourglassBottom from "@mui/icons-material/HourglassBottom";
 import "./JobCard.css";
 import { Bolt } from "@mui/icons-material";
 
-const JobCard = ({jobRole,jobDescription,jobLink,jobLocation}) => {
+const JobCard = ({jobRole,jobDescription,jobLocation,jobMinSalary,jobMaxSalary,jobCurrency,jobMinExp}) => {
   return (
     <Box
-      className="shadow"
+      className="job-card-container shadow"
       sx={{
         display: "flex",
         alignItems: "center",
@@ -61,6 +61,7 @@ const JobCard = ({jobRole,jobDescription,jobLink,jobLocation}) => {
                   color: "#8b8b8b",
                   fontWeight: "600",
                   fontSize: "0.7rem",
+                  cursor:'pointer',
                 }}
               >
                 Weekday
@@ -80,7 +81,7 @@ const JobCard = ({jobRole,jobDescription,jobLink,jobLocation}) => {
           </Box>
           <Box>
             <Typography variant="body2">
-              Estimated Salary: ₹18 - 35 LPA ✅
+              Estimated Salary: {jobCurrency === 'INR' ? '₹' : '$'}{jobMinSalary} - {jobMaxSalary} {jobCurrency === 'INR'?'LPA':'K'} ✅
             </Typography>
           </Box>
           <Box sx={{ position: "relative" }}>
@@ -126,7 +127,7 @@ const JobCard = ({jobRole,jobDescription,jobLink,jobLocation}) => {
             >
               Minimum Experience
             </Typography>
-            <Typography variant="body2">2 years</Typography>
+            <Typography variant="body2">{jobMinExp} years</Typography>
           </Box>
           <Box
             sx={{

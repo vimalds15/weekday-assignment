@@ -1,55 +1,72 @@
-import { Grid } from '@mui/material';
-import './App.css'
-import JobCard from './components/JobCard';
-import { useEffect, useState } from 'react';
+import { Grid } from "@mui/material";
+import "./App.css";
+import JobCard from "./components/jobCard/JobCard";
+import { useEffect, useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchData } from "./features/redux/jobs/jobsSlice";
+import Filter from "./components/filter/Filter";
 
 function App() {
-  const [jobs,setJobs] = useState([]);
+  const jobs = useSelector((state) => state.jobs.jobs);
+  const loading = useSelector((state) => state.jobs.loading);
+  const dispatch = useDispatch();
+  const [offset, setOffset] = useState(0);
+  const observer = useRef();
 
-  const fetchData = async() => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+  // For infinite loading
+  useEffect(() => {
+    // Initialize Intersection Observer
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        const firstEntry = entries[0];
+        if (firstEntry.isIntersecting && !loading) {
+          // Increment offset when footer is intersecting
+          setOffset((prevVal) => prevVal + 10);
+        }
+      },
+      {
+        threshold: 0.5,
+      }
+    );
 
-    const raw = JSON.stringify({
-      "limit": 10,
-      "offset": 0
-     });
-     
-     const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw
-     };
-     
-     try {
-        const response = await fetch("https://api.weekday.technology/adhoc/getSampleJdJSON", requestOptions) 
-        const result = await response?.json();
-        setJobs(result.jdList);
-        console.log(result);
-     } catch (error) {
-      console.error(error?.message)
-     }
-  }
+    // Observe the footer
+    observer.current.observe(document.getElementById("footer"));
 
+    // Cleanup function
+    return () => {
+      observer.current.disconnect();
+    };
+  }, [loading]);
 
-  useEffect(()=>{
-    fetchData();
-  },[])
+  useEffect(() => {
+    if (offset !== 0) {
+      dispatch(fetchData({ offset })); 
+    }
+  }, [offset]);
 
+  
   return (
-    <div className='container'>
-      <Grid container className='wrapper'>
-        {jobs?.map(job => (
+    <div className="container">
+      <Filter />    
+      <Grid container className="wrapper">
+        {jobs?.map((job) => (
           <Grid key={job?.jdUid} item>
-            <JobCard 
-              jobLink={job?.jdLlink}
+            <JobCard
+              jobLink={job?.jdLink}
               jobRole={job?.jobRole}
               jobLocation={job?.location}
               jobDescription={job?.jobDetailsFromCompany}
+              jobMinSalary={job?.minJdSalary}
+              jobMaxSalary={job?.maxJdSalary}
+              jobMinExp={job?.minExp}
+              jobCurrency={job?.salaryCurrencyCode}
             />
           </Grid>
         ))}
       </Grid>
+      {/* Footer element to observe for intersection */}
+      <div id="footer" style={{ height: "10px" }}></div>
+      {loading && <p>Loading...</p>}
     </div>
   );
 }
